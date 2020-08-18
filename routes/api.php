@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('boards', 'BoardController@create');
 Route::put('boards/{id}', 'BoardController@update');
+
+Route::post('tasks', 'TaskController@create');
