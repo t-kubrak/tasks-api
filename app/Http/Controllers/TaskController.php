@@ -10,9 +10,27 @@ use App\Task;
 use App\TaskLabel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends \Illuminate\Routing\Controller
 {
+    public function get(Request $request): JsonResponse
+    {
+        $tasks = DB::table('tasks AS t')
+            ->leftJoin('tasks_labels AS tl', 't.id', '=', 'tl.task_id')
+            ->selectRaw('t.*');
+
+        if ($request->has('label_id')) {
+            $tasks->where('tl.label_id', $request->label_id);
+        }
+
+        if ($request->has('status')) {
+            $tasks->where('t.status', $request->status);
+        }
+
+        return response()->json($tasks->get());
+    }
+
     public function create(Request $request): JsonResponse
     {
         Board::findOrFail($request->board_id);
