@@ -22,5 +22,6 @@ Route::post('boards', 'BoardController@create');
 Route::put('boards/{id}', 'BoardController@update');
 
 Route::post('tasks', 'TaskController@create');
+Route::post('tasks/{taskId}/labels/{labelId}', 'TaskController@attachLabel');
 
 Route::post('labels', 'LabelsController@create');
