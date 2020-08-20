@@ -11,9 +11,15 @@ use App\TaskLabel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Image as ImageModel;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class TaskController extends \Illuminate\Routing\Controller
 {
+    private const PATH_IMAGES_DESKTOP = 'app/images/desktop/';
+    private const PATH_IMAGES_MOBILE = 'app/images/mobile/';
+
     public function get(Request $request): JsonResponse
     {
         $tasks = DB::table('tasks AS t')
@@ -56,5 +62,39 @@ class TaskController extends \Illuminate\Routing\Controller
         $taskLabel->save();
 
         return response()->json($taskLabel);
+    }
+
+    public function attachImage(Request $request, int $taskId): JsonResponse
+    {
+        Task::findOrFail($taskId);
+
+        if (!Storage::exists('images/desktop')) {
+            Storage::makeDirectory('images/desktop');
+        }
+
+        if (!Storage::exists('images/mobile')) {
+            Storage::makeDirectory('images/mobile');
+        }
+
+        $image = $request->file('image');
+        $img = Image::make($image);
+
+        $img->fit(1280, 720);
+
+        $pathDesktop = storage_path(self::PATH_IMAGES_DESKTOP) . $image->getClientOriginalName();
+        $img->save($pathDesktop);
+
+        $img->fit(640, 360);
+
+        $pathMobile = storage_path(self::PATH_IMAGES_MOBILE) . $image->getClientOriginalName();
+        $img->save($pathMobile);
+
+        $imageRecord = new ImageModel();
+        $imageRecord->task_id = $taskId;
+        $imageRecord->path_desktop = $pathDesktop;
+        $imageRecord->path_mobile = $pathMobile;
+        $imageRecord->save();
+
+        return response()->json($imageRecord);
     }
 }

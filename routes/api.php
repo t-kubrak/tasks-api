@@ -28,5 +28,6 @@ Route::middleware(['auth.basic.once'])->group(function () {
 Route::get('tasks', 'TaskController@get');
 Route::post('tasks', 'TaskController@create');
 Route::post('tasks/{taskId}/labels/{labelId}', 'TaskController@attachLabel');
+Route::post('tasks/{taskId}/images', 'TaskController@attachImage');
 
 Route::post('labels', 'LabelsController@create');
