@@ -18,8 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('boards', 'BoardController@create');
-Route::put('boards/{id}', 'BoardController@update');
+Route::middleware(['auth.basic.once'])->group(function () {
+    Route::post('boards', 'BoardController@create');
+    Route::put('boards/{id}', 'BoardController@update');
+});
+
 
 Route::get('tasks', 'TaskController@get');
 Route::post('tasks', 'TaskController@create');
