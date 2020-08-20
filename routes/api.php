@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware(['auth.basic.once'])->group(function () {
     Route::post('boards', 'BoardController@create');
     Route::put('boards/{id}', 'BoardController@update');
+    Route::delete('boards/{id}', 'BoardController@delete');
 });
 
 

@@ -34,4 +34,15 @@ class BoardController extends Controller
 
         return response()->json($board);
     }
+
+    public function delete(Request $request, int $id): JsonResponse
+    {
+        $board = Board::findOrFail($id);
+
+        $this->authorize('delete', $board);
+
+        $board->delete();
+
+        return response()->json($board);
+    }
 }
