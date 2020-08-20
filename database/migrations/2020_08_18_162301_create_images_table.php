@@ -15,8 +15,8 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('path_desktop');
-            $table->string('path_mobile');
+            $table->string('path_desktop')->nullable();
+            $table->string('path_mobile')->nullable();
             $table->foreignId('task_id')->constrained('tasks');
             $table->timestamps();
         });
