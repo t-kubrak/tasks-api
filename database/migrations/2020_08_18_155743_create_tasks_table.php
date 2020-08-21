@@ -19,6 +19,7 @@ class CreateTasksTable extends Migration
             $table->string('status');
             $table->string('description')->nullable();
             $table->foreignId('board_id')->constrained('boards');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

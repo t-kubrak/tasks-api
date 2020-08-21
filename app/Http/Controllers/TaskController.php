@@ -45,6 +45,7 @@ class TaskController extends \Illuminate\Routing\Controller
         $task->description = $request->description;
         $task->status = Task::STATUS_DEVELOPMENT;
         $task->board_id = $request->board_id;
+        $task->user_id = Auth::id();
         $task->save();
 
         $this->log('create-task', $task);
