@@ -1,5 +1,4 @@
 # tasks-api
-tasks-api
 
 API documentation could be found
 [here](https://documenter.getpostman.com/view/782282/T1LTgR22).
