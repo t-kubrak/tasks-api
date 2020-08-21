@@ -7,6 +7,8 @@ API documentation could be found
 Note: api uses basic auth.
 Use `{your-host.name}/register` to create a new user and simply add its credentials to the request.
 
+Don't forget to run `php artisan migrate` to create db tables.
+
 Note: [supervisor](https://laravel.com/docs/7.x/queues#supervisor-configuration) was used in order to run image conversion job asynchronously.
 
 To install and configure supervisor:
