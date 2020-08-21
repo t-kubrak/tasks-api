@@ -31,3 +31,7 @@ Route::post('tasks/{taskId}/labels/{labelId}', 'TaskController@attachLabel');
 Route::post('tasks/{taskId}/images', 'TaskController@attachImage');
 
 Route::post('labels', 'LabelsController@create');
+
+Route::get('logs', function () {
+    return \App\Log::all();
+});
