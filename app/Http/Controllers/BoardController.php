@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 
 
 use App\Board;
-use App\Log;
+use App\Http\Resources\BoardsCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
 class BoardController extends Controller
 {
+    /**
+     * TODO: add statistics
+     */
+    public function all(): JsonResource
+    {
+        return BoardsCollection::make(Board::paginate());
+    }
+
     public function create(Request $request): JsonResponse
     {
         $board = new Board();
