@@ -91,6 +91,15 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'mongodb' => [
+            'driver'   => 'mongodb',
+            'host'     => 'localhost',
+            'port'     => 27017,
+            'username' => 'homestead',
+            'password' => 'secret',
+            'database' => 'test',
+            'options' => ['db' => 'admin'] // Required to authenticate on MongoDB 3.0 or higher
+        ],
     ],
 
     /*
