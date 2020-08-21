@@ -68,6 +68,9 @@ class TaskController extends \Illuminate\Routing\Controller
         return response()->json($taskLabel);
     }
 
+    /**
+     * TODO: add custom image upload request
+     */
     public function attachImage(Request $request, int $taskId): JsonResponse
     {
         Task::findOrFail($taskId);
@@ -86,6 +89,9 @@ class TaskController extends \Illuminate\Routing\Controller
         return response()->json();
     }
 
+    /**
+     * TODO: use events/listeners
+     */
     private function log(string $operation, Model $entity): void
     {
         $log = new Log();
